@@ -7,7 +7,7 @@ const {
   addUser
 } = require('../controllers/user.controller')
 
-userRouter.get('/', getAllUsers)
+userRouter.get('/', checkAdmin, getAllUsers)
 userRouter.post('/', checkAuth, checkAdmin, addUser)
 
 exports.userRouter = userRouter
