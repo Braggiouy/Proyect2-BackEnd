@@ -42,7 +42,20 @@ function getAllUsers (req, res) {
     )
 }
 
+function getUserByName (req, res) {
+  console.log(req.params)
+  userModel
+    .find({ name: req.params.name })
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(err =>
+      res.status(500).json({ err: 'Error' }, err)
+    )
+}
+
 module.exports = {
   addUser,
-  getAllUsers
+  getAllUsers,
+  getUserByName
 }
