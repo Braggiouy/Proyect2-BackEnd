@@ -3,11 +3,7 @@ const jwt = require('jsonwebtoken')
 const { userModel } = require('../models/users.model')
 
 function addUser (req, res) {
-  console.log('chous')
   const hashedPwd = bcrypt.hashSync(req.body.password, 10)
-  console.log(hashedPwd)
-  console.log(req.body)
-
   userModel
     .create({
       name: req.body.name,
@@ -68,7 +64,6 @@ function updateUser (req, res) {
   userModel
     .findOneAndUpdate({ email: req.params.email }, req.body, { new: true })
     .then(user => {
-      console.log(req.params.email)
       res.status(200).json(user)
     })
     .catch(err => {
