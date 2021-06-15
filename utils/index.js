@@ -13,7 +13,7 @@ function checkAuth (req, res, next) {
         }
       )
       .then(user => {
-        if (!user) {
+        if (user) {
           res.locals.user = user
           next()
         } else {
@@ -24,26 +24,11 @@ function checkAuth (req, res, next) {
 }
 
 function checkAdmin (req, res, next) {
-  jwt.verify(req.headers.token, process.env.SECRET, (err, token) => {
-    if (err) {
-      console.log(req.headers.token)
-      res.status(403).json({ error: 'You are not an admin, please contact with one' })
-    }
-    userModel
-      .findOne(
-        {
-          role: token.role
-        }
-      )
-      .then(user => {
-        if (user.role === 'admin') {
-          res.locals.user = user
-          next()
-        } else {
-          res.json({ err: 'You are not an admin, please contact with one' })
-        }
-      })
-  })
+  if (res.locals.user.role === 'admin') {
+    next()
+  } else {
+    res.status(403).json({ error: 'You are not an admin, please contact with one' })
+  }
 }
 
 module.exports = {

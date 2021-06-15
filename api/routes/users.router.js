@@ -5,11 +5,15 @@ const { checkAuth, checkAdmin } = require('../../utils')
 const {
   getAllUsers,
   addUser,
-  getUserByName
+  getUserByName,
+  deleteUser,
+  updateUser
 } = require('../controllers/user.controller')
 
-userRouter.get('/', checkAdmin, getAllUsers)
-userRouter.get('/:name', checkAdmin, getUserByName)
+userRouter.get('/', checkAuth, checkAdmin, getAllUsers)
+userRouter.get('/:name', checkAuth, checkAdmin, getUserByName)
 userRouter.post('/', checkAuth, checkAdmin, addUser)
+userRouter.put('/:email', checkAuth, checkAdmin, updateUser)
+userRouter.delete('/:email', checkAuth, checkAdmin, deleteUser)
 
-exports.userRouter = userRouter
+module.exports = { userRouter }

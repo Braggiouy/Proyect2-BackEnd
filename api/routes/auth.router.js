@@ -7,4 +7,4 @@ const {
 
 authRouter.post('/', login)
 
-exports.authRouter = authRouter
+module.exports = { authRouter }

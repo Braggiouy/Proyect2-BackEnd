@@ -5,4 +5,5 @@ const { authRouter } = require('./auth.router')
 router
   .use('/users', userRouter)
   .use('/users/login', authRouter)
-exports.router = router
+
+module.exports = { router }
