@@ -5,6 +5,6 @@ const {
   login
 } = require('../controllers/auth.controller')
 
-authRouter.post('/', login)
+authRouter.post('/login', login)
 
 module.exports = { authRouter }
