@@ -30,7 +30,7 @@ function addUser (req, res) {
 
 function getAllUsers (req, res) {
   userModel
-    .find(req.body)
+    .find()
     .then(user => {
       res.status(200).json(user)
     })
