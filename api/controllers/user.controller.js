@@ -27,7 +27,7 @@ function addUser (req, res) {
       return res.json({ token: token, ...userData })
     })
     .catch(err => {
-      res.status(500).json({ msg: 'Error111111', err })
+      res.status(500).json({ msg: 'Error creating user', err })
     })
 }
 
@@ -43,11 +43,10 @@ function getAllUsers (req, res) {
 }
 
 function getUserByName (req, res) {
-  console.log(req.params)
   userModel
-    .find({ name: req.params.name })
-    .then(user => {
-      res.status(200).json(user)
+  .find({ name: { $regex: `.*${req.params.name}.*`, $options: 'i' }})
+  .then(user => {
+    res.status(200).json(user)
     })
     .catch(err =>
       res.status(500).json({ err: 'Error' }, err)

@@ -26,6 +26,7 @@ function checkAuth (req, res, next) {
 function checkAdmin (req, res, next) {
   jwt.verify(req.headers.token, process.env.SECRET, (err, token) => {
     if (err) {
+      console.log(req.headers.token)
       res.status(403).json({ error: 'You are not an admin, please contact with one' })
     }
     userModel
