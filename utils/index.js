@@ -17,7 +17,7 @@ function checkAuth (req, res, next) {
           res.locals.user = user
           next()
         } else {
-          res.json({ err: 'Token not valid' })
+          res.json({ err: 'Token not valid ja' })
         }
       })
   })

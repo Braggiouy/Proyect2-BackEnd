@@ -2,11 +2,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { userModel } = require('../models/users.model')
 
-function addUser(req, res) {
-  console.log('chous')
+function addUser (req, res) {
   const hashedPwd = bcrypt.hashSync(req.body.password, 10)
-  console.log(hashedPwd)
-  console.log(req.body)
 
   userModel
     .create({
@@ -31,7 +28,7 @@ function addUser(req, res) {
     })
 }
 
-function getAllUsers(req, res) {
+function getAllUsers (req, res) {
   userModel
     .find(req.body)
     .then(user => {
@@ -42,7 +39,7 @@ function getAllUsers(req, res) {
     )
 }
 
-function getUserByName(req, res) {
+function getUserByName (req, res) {
   userModel
     .find({ name: { $regex: `.*${req.params.name}.*`, $options: 'i' } })
     .then(users => {
@@ -53,7 +50,7 @@ function getUserByName(req, res) {
     )
 }
 
-function deleteUser(req, res) {
+function deleteUser (req, res) {
   userModel
     .findOneAndDelete({ email: req.params.email })
     .then(user => {
@@ -64,7 +61,7 @@ function deleteUser(req, res) {
     })
 }
 
-function updateUser(req, res) {
+function updateUser (req, res) {
   userModel
     .findOneAndUpdate({ email: req.params.email }, req.body, { new: true })
     .then(user => {
