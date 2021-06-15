@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { replacementsModel } = require('./replacements.model')
+const { replacementsSchema } = require('./replacements.model')
 
 const toolMaintenancesSchema = new mongoose.Schema({
   toolId: {
@@ -8,14 +8,14 @@ const toolMaintenancesSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'users',
+    default: '0'
   },
   maintenanceDate: {
     type: Date
   },
-  maintenance: {
-    type: [replacementsModel]
-  },
+  maintenance: [replacementsSchema],
+
   totalCost: {
     type: Number
   },
