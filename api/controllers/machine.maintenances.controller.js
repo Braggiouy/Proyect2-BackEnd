@@ -1,7 +1,7 @@
-const { toolMaintenancesModel } = require('../models/tool.maintenances.model')
+const { machineMaintenancesModel } = require('../models/machine.maintenances.model')
 
-function getAllToolMaintenances (req, res) {
-  toolMaintenancesModel
+function getAllMachineMaintenances (req, res) {
+  machineMaintenancesModel
     .find()
     .then(maintenances => {
       res.status(200).json(maintenances)
@@ -11,22 +11,22 @@ function getAllToolMaintenances (req, res) {
     })
 }
 
-function getToolMaintenancesByToolId (req, res) {
-  toolMaintenancesModel
-    .find({ toolId: req.params.toolId })
+function getMachineMaintenancesByMachineId (req, res) {
+  machineMaintenancesModel
+    .find({ machineId: req.params.machineId })
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
 }
 
-function addToolMaintenance (req, res) {
-  toolMaintenancesModel
+function addMachineMaintenance (req, res) {
+  machineMaintenancesModel
     .create(req.body)
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
 }
 
-function updateToolMaintenance (req, res) {
-  toolMaintenancesModel
+function updateMachineMaintenance (req, res) {
+  machineMaintenancesModel
     .findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(maintenance => {
       res.status(200).send(maintenance + 'has been updated')
@@ -36,8 +36,8 @@ function updateToolMaintenance (req, res) {
     })
 }
 
-function deleteToolMaintenance (req, res) {
-  toolMaintenancesModel
+function deleteMachineMaintenance (req, res) {
+  machineMaintenancesModel
     .findByIdAndDelete(req.params.id)
     .then(maintenance => {
       res.status(200).send(maintenance + 'has been deleted')
@@ -48,9 +48,9 @@ function deleteToolMaintenance (req, res) {
 }
 
 module.exports = {
-  getAllToolMaintenances,
-  getToolMaintenancesByToolId,
-  addToolMaintenance,
-  updateToolMaintenance,
-  deleteToolMaintenance
+  getAllMachineMaintenances,
+  getMachineMaintenancesByMachineId,
+  addMachineMaintenance,
+  updateMachineMaintenance,
+  deleteMachineMaintenance
 }
