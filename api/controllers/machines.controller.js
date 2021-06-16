@@ -52,11 +52,26 @@ function deleteMchine (req, res) {
     )
 }
 
+function checkMachineById (req, res, next) {
+  machineModel
+    .findById(req.params.id)
+    .then((machine) => {
+      if (!machine) {
+        res.json('you cannot maintain what does not exist')
+      } else {
+        res.locals.machine = machine
+        next()
+      }
+    })
+    .catch((err) => res.json(err))
+}
+
 module.exports = {
   addMachine,
   getAllMachines,
   getMachineByStatus,
   getMachineById,
   updateMachine,
-  deleteMchine
+  deleteMchine,
+  checkMachineById
 }

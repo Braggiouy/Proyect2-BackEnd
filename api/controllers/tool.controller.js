@@ -56,12 +56,11 @@ function getTool (req, res) {
 }
 
 function checkToolById (req, res, next) {
-  console.log(req.body.toolId)
   toolModel
     .findById(req.params.id)
     .then((tool) => {
       if (!tool) {
-        res.json('you cannot mantein what not exist')
+        res.json('you cannot maintain what does not exist')
       } else {
         res.locals.tool = tool
         next()

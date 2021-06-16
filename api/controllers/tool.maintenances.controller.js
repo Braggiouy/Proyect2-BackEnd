@@ -13,7 +13,7 @@ function getAllToolMaintenances (req, res) {
 
 function getToolMaintenancesByToolId (req, res) {
   toolMaintenancesModel
-    .find({ toolId: req.params.id })
+    .find({ toolId: req.params.toolId })
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
 }

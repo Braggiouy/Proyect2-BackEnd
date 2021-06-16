@@ -8,7 +8,7 @@ const {
   getMachineByStatus,
   updateMachine,
   deleteMchine
-} = require('../controllers/machines.controlers')
+} = require('../controllers/machines.controller')
 
 machineRouter.get('/', checkAuth, checkAdmin, getAllMachines)
 machineRouter.get('/:busy', checkAuth, checkAdmin, getMachineByStatus)
