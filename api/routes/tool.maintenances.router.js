@@ -4,7 +4,7 @@ const toolMaintenancesRouter = require('express').Router()
 
 const {
   getAllToolMaintenances,
-  getToolMaintenanceById,
+  getToolMaintenancesByToolId,
   addToolMaintenance,
   updateToolMaintenance,
   deleteToolMaintenance
@@ -12,7 +12,7 @@ const {
 } = require('../controllers/tool.maintenances.controller')
 
 toolMaintenancesRouter.get('/', checkAuth, checkAdmin, getAllToolMaintenances)
-toolMaintenancesRouter.get('/:id', checkAuth, checkAdmin, getToolMaintenanceById)
+toolMaintenancesRouter.get('/:tool_id', checkAuth, checkAdmin, getToolMaintenancesByToolId)
 toolMaintenancesRouter.post('/', checkAuth, checkAdmin, addToolMaintenance)
 toolMaintenancesRouter.put('/:id', checkAuth, checkAdmin, updateToolMaintenance)
 toolMaintenancesRouter.delete('/:id', checkAuth, checkAdmin, deleteToolMaintenance)
