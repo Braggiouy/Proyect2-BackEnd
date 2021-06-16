@@ -27,8 +27,8 @@ const toolMaintenancesSchema = new mongoose.Schema({
   status: {
     type: String,
     required: [true, 'Status not defined'],
-    enum: ['To do', 'In progress', 'Done'],
-    default: 'To do'
+    enum: ['unassigned', 'To do', 'In progress', 'Done'],
+    default: 'unassigned'
   }
 })
 

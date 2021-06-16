@@ -47,10 +47,33 @@ function deleteToolMaintenance (req, res) {
     })
 }
 
+function getMechanicMaintenaceList (req, res) {
+  toolMaintenancesModel
+    .find({ userId: req.params.userId })
+    .then(maintenance => {
+      res.status(200).send(maintenance)
+    })
+    .catch(err => {
+      res.status(500).json({ err: 'Error' }, err)
+    })
+}
+
+function updateToolMaintenanceMechanic (req, res) {
+  toolMaintenancesModel
+    .findOneAndUpdate({ $and: [{ _id: req.params.id }, { userId: res.locals.user.id }] }, req.body, { new: true })
+    .then(result => {
+      res.status(200).send(result)
+    }).catch(err => {
+      res.status(500).json({ err: 'Error' }, err)
+    })
+}
+
 module.exports = {
   getAllToolMaintenances,
   getToolMaintenancesByToolId,
   addToolMaintenance,
   updateToolMaintenance,
-  deleteToolMaintenance
+  deleteToolMaintenance,
+  getMechanicMaintenaceList,
+  updateToolMaintenanceMechanic
 }

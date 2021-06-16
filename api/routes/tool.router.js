@@ -1,5 +1,5 @@
 const toolRouter = require('express').Router()
-const { checkAuth, checkAdmin } = require('../../utils')
+const { checkAuth, checkAdmin } = require('../../utils/auth')
 
 const {
   getAllTools,

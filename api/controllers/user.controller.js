@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const { userModel } = require('../models/users.model')
-
 function addUser (req, res) {
   const hashedPwd = bcrypt.hashSync(req.body.password, 10)
   userModel
@@ -15,12 +13,8 @@ function addUser (req, res) {
       others: req.body.others
     })
     .then(user => {
-      const userData = { name: user.name, role: user.role }
-      const token = jwt.sign(
-        userData,
-        process.env.SECRET,
-        { expiresIn: '8h' })
-      return res.json({ token: token, ...userData })
+      const userData = { name: user.name, role: user.role, email: user.email }
+      return res.json(userData)
     })
     .catch(err => {
       res.status(500).json({ msg: 'Error creating user', err })
