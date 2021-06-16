@@ -1,5 +1,5 @@
 const { checkAuth, checkAdmin } = require('../../utils')
-
+const { checkToolById } = require('../controllers/tool.controller')
 const toolMaintenancesRouter = require('express').Router()
 
 const {
@@ -8,12 +8,11 @@ const {
   addToolMaintenance,
   updateToolMaintenance,
   deleteToolMaintenance
-
 } = require('../controllers/tool.maintenances.controller')
 
 toolMaintenancesRouter.get('/', checkAuth, checkAdmin, getAllToolMaintenances)
-toolMaintenancesRouter.get('/:tool_id', checkAuth, checkAdmin, getToolMaintenancesByToolId)
-toolMaintenancesRouter.post('/', checkAuth, checkAdmin, addToolMaintenance)
+toolMaintenancesRouter.get('/:toolId', checkAuth, checkAdmin, getToolMaintenancesByToolId)
+toolMaintenancesRouter.post('/:id', checkAuth, checkAdmin, checkToolById, addToolMaintenance)
 toolMaintenancesRouter.put('/:id', checkAuth, checkAdmin, updateToolMaintenance)
 toolMaintenancesRouter.delete('/:id', checkAuth, checkAdmin, deleteToolMaintenance)
 

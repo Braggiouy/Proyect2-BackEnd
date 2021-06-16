@@ -8,8 +8,7 @@ const toolMaintenancesSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
-    default: '0'
+    ref: 'users'
   },
   maintenanceDate: {
     type: Date

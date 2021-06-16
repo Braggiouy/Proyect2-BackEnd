@@ -1,6 +1,6 @@
 const { toolMaintenancesModel } = require('../models/tool.maintenances.model')
 
-function getAllToolMaintenances(req, res) {
+function getAllToolMaintenances (req, res) {
   toolMaintenancesModel
     .find()
     .then(maintenances => {
@@ -11,22 +11,21 @@ function getAllToolMaintenances(req, res) {
     })
 }
 
-function getToolMaintenancesByToolId(req, res) {
+function getToolMaintenancesByToolId (req, res) {
   toolMaintenancesModel
-    .find({ tool_id: req.params.id })
+    .find({ toolId: req.params.id })
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
 }
 
-function addToolMaintenance(req, res) {
+function addToolMaintenance (req, res) {
   toolMaintenancesModel
     .create(req.body)
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
-
 }
 
-function updateToolMaintenance(req, res) {
+function updateToolMaintenance (req, res) {
   toolMaintenancesModel
     .findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(maintenance => {
@@ -37,7 +36,7 @@ function updateToolMaintenance(req, res) {
     })
 }
 
-function deleteToolMaintenance(req, res) {
+function deleteToolMaintenance (req, res) {
   toolMaintenancesModel
     .findByIdAndDelete(req.params.id)
     .then(maintenance => {
