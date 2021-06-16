@@ -1,6 +1,5 @@
 const userRouter = require('express').Router()
 const { checkAuth, checkAdmin } = require('../../utils')
-// const { checkAuth } = require('../../utils')
 
 const {
   getAllUsers,

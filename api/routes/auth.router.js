@@ -1,5 +1,4 @@
 const authRouter = require('express').Router()
-// const { checkAuth } = require('../../utils')
 
 const {
   login
