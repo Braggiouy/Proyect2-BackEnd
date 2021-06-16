@@ -33,11 +33,11 @@ function addTool (req, res) {
 function updateTool (req, res) {
   toolModel
     .findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((result) => res.json(result))
+    .then((result) => res.status(200).json(result))
     .catch((err) => res.json(err))
 }
 
-function deleteTool(req, res) {
+function deleteTool (req, res) {
   toolModel
     .findByIdAndDelete(req.params.id)
     .then(tool => {
@@ -51,7 +51,17 @@ function deleteTool(req, res) {
 function getTool (req, res) {
   toolModel
     .findById(req.params.id)
-    .then((tool) => res.json(tool))
+    .then((tool) => res.status(200).json(tool))
+    .catch((err) => res.json(err))
+}
+
+function checkToolById (req, res, next) {
+  toolModel
+    .findById(req.params.id)
+    .then((tool) => {
+      res.locals.tool = tool
+      next()
+    })
     .catch((err) => res.json(err))
 }
 
@@ -60,5 +70,6 @@ module.exports = {
   addTool,
   updateTool,
   deleteTool,
-  getTool
+  getTool,
+  checkToolById
 }
