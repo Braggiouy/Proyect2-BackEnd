@@ -31,8 +31,8 @@ function addUser (req, res) {
 function getAllUsers (req, res) {
   userModel
     .find()
-    .then(user => {
-      res.status(200).json(user)
+    .then(users => {
+      res.status(200).json(users)
     })
     .catch(err =>
       res.status(500).json({ err: 'Error' }, err)

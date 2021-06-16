@@ -23,10 +23,30 @@ function getMachineById (req, res) {
 
 function getMachineByStatus (req, res) {
   machineModel
-    .find(req.params.busy)
+    .find({ busy: req.params.busy })
+    .select({ busy: 1, addressBuildingSite: 1 })
     .then(machines => {
       res.status(200).json(machines)
     })
+    .catch(err =>
+      res.status(500).json({ msg: 'Error', err })
+    )
+}
+
+function updateMachine (req, res) {
+  machineModel
+    .findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(machine => res.status(200).json(machine)
+    )
+    .catch(err =>
+      res.status(500).json({ msg: 'Error', err })
+    )
+}
+
+function deleteMchine (req, res) {
+  machineModel
+    .findByIdAndDelete(req.params.id)
+    .then(machine => res.status(200).json({ msg: 'deleted' }))
     .catch(err =>
       res.status(500).json({ msg: 'Error', err })
     )
@@ -36,5 +56,7 @@ module.exports = {
   addMachine,
   getAllMachines,
   getMachineByStatus,
-  getMachineById
+  getMachineById,
+  updateMachine,
+  deleteMchine
 }
