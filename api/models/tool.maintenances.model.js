@@ -14,7 +14,7 @@ const toolMaintenancesSchema = new mongoose.Schema({
   maintenanceDate: {
     type: Date
   },
-  maintenance: [replacementsSchema],
+  replacement: [replacementsSchema],
 
   totalCost: {
     type: Number

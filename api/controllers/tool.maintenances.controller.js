@@ -1,6 +1,6 @@
 const { toolMaintenancesModel } = require('../models/tool.maintenances.model')
 
-function getAllToolMaintenances (req, res) {
+function getAllToolMaintenances(req, res) {
   toolMaintenancesModel
     .find()
     .then(maintenances => {
@@ -11,36 +11,37 @@ function getAllToolMaintenances (req, res) {
     })
 }
 
-function getToolMaintenanceById (req, res) {
+function getToolMaintenancesByToolId(req, res) {
   toolMaintenancesModel
-    .findById(req.params.id)
+    .find({ tool_id: req.params.id })
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
 }
 
-function addToolMaintenance (req, res) {
+function addToolMaintenance(req, res) {
   toolMaintenancesModel
     .create(req.body)
     .then((maintenance) => res.json(maintenance))
     .catch((err) => res.json(err))
+
 }
 
-function updateToolMaintenance (req, res) {
+function updateToolMaintenance(req, res) {
   toolMaintenancesModel
     .findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(maintenance => {
-      res.status(200).send(maintenance.maintenance + 'has been updated')
+      res.status(200).send(maintenance + 'has been updated')
     })
     .catch(err => {
       res.status(500).json({ err: 'Error updating maintenance' }, err)
     })
 }
 
-function deleteToolMaintenance (req, res) {
+function deleteToolMaintenance(req, res) {
   toolMaintenancesModel
     .findByIdAndDelete(req.params.id)
     .then(maintenance => {
-      res.status(200).send(maintenance.maintenance + 'has been deleted')
+      res.status(200).send(maintenance + 'has been deleted')
     })
     .catch(err => {
       res.status(500).json({ err: 'Error deleting maintenance' }, err)
@@ -49,7 +50,7 @@ function deleteToolMaintenance (req, res) {
 
 module.exports = {
   getAllToolMaintenances,
-  getToolMaintenanceById,
+  getToolMaintenancesByToolId,
   addToolMaintenance,
   updateToolMaintenance,
   deleteToolMaintenance
