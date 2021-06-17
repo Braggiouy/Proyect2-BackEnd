@@ -11,7 +11,7 @@ const {
 
 userRouter.get('/', checkAuth, checkAdmin, getAllUsers)
 userRouter.get('/:name', checkAuth, checkAdmin, getUserByName)
-userRouter.post('/', /*checkAuth, checkAdmin,*/ addUser)
+userRouter.post('/', checkAuth, checkAdmin, addUser)
 userRouter.put('/:email', checkAuth, checkAdmin, updateUser)
 userRouter.delete('/:email', checkAuth, checkAdmin, deleteUser)
 
