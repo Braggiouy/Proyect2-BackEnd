@@ -19,15 +19,19 @@ function getToolMaintenancesByToolId (req, res) {
 }
 
 function addToolMaintenance (req, res) {
+  console.log(req.body)
   toolMaintenancesModel
     .create(req.body)
-    .then((maintenance) => res.json(maintenance))
+    .then((maintenance) => {
+      console.log('maintenance: ', maintenance)
+      res.json(maintenance)
+    })
     .catch((err) => res.json(err))
 }
 
 function updateToolMaintenance (req, res) {
   toolMaintenancesModel
-    .findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .findOneAndUpdate({ _id: req.params.id }, { $push: { replacement: req.body.replacement }, maintenanceDate: req.body.maintenanceDate, totalCost: req.body.totalCost, priority: req.body.priority, status: req.body.status }, { new: true })
     .then(maintenance => {
       res.status(200).send(maintenance + 'has been updated')
     })
@@ -36,11 +40,12 @@ function updateToolMaintenance (req, res) {
     })
 }
 
-function deleteToolMaintenance (req, res) {
+function deleteToolMaintenance (req, res, next) {
   toolMaintenancesModel
-    .findByIdAndDelete(req.params.id)
+    .deleteMany({ toolId: req.params.id })
     .then(maintenance => {
-      res.status(200).send(maintenance + 'has been deleted')
+      res.locals.maintenance = maintenance
+      next()
     })
     .catch(err => {
       res.status(500).json({ err: 'Error deleting maintenance' }, err)
@@ -60,7 +65,7 @@ function getMechanicMaintenaceList (req, res) {
 
 function updateToolMaintenanceMechanic (req, res) {
   toolMaintenancesModel
-    .findOneAndUpdate({ $and: [{ _id: req.params.id }, { userId: res.locals.user.id }] }, req.body, { new: true })
+    .findOneAndUpdate({ $and: [{ _id: req.params.id }, { userId: res.locals.user.id }] }, { $push: { replacement: req.body.replacement }, maintenanceDate: req.body.maintenanceDate, totalCost: req.body.totalCost, priority: req.body.priority, status: req.body.status }, { new: true })
     .then(result => {
       res.status(200).send(result)
     }).catch(err => {

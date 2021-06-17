@@ -10,6 +10,20 @@ function getAllTools (req, res) {
       res.status(500).json({ err: 'Error' }, err)
     )
 }
+
+function getToolByStatus (req, res) {
+  console.log('hola')
+  toolModel
+    .find({ busy: req.params.busy })
+    .select({ busy: 1, addressBuildingSite: 1 })
+    .then(tool => {
+      res.status(200).json(tool)
+    })
+    .catch(err =>
+      res.status(500).json({ msg: 'Error', err })
+    )
+}
+
 function addTool (req, res) {
   toolModel
     .create({
@@ -17,7 +31,7 @@ function addTool (req, res) {
       brand: req.body.brand,
       model: req.body.model,
       serialNumber: req.body.serialNumber,
-      adquisitionDate: req.body.adquisitionDate,
+      acquisitionDate: req.body.acquisitionDate,
       provider: req.body.provider,
       busy: req.body.busy,
       addressBuildingSite: req.body.addressBuildingSite
@@ -71,6 +85,7 @@ function checkToolById (req, res, next) {
 
 module.exports = {
   getAllTools,
+  getToolByStatus,
   addTool,
   updateTool,
   deleteTool,

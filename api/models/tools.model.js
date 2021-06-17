@@ -20,7 +20,7 @@ const toolSchema = new mongoose.Schema({
     required: [true, 'Please enter a serial number'],
     unique: [true, 'Serial number already exist']
   },
-  adquisitionDate: {
+  acquisitionDate: {
     type: Date,
     required: [true, 'Please enter a date']
   },

@@ -36,11 +36,13 @@ function updateMachineMaintenance (req, res) {
     })
 }
 
-function deleteMachineMaintenance (req, res) {
+function deleteMachineMaintenance (req, res, next) {
+  console.log(req.params.id)
   machineMaintenancesModel
-    .findByIdAndDelete(req.params.id)
+    .deleteMany({ machineId: req.params.id })
     .then(maintenance => {
-      res.status(200).send(maintenance + 'has been deleted')
+      res.locals.maintenance = maintenance
+      next()
     })
     .catch(err => {
       res.status(500).json({ err: 'Error deleting maintenance' }, err)
