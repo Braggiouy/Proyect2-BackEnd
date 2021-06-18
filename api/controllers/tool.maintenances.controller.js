@@ -19,11 +19,9 @@ function getToolMaintenancesByToolId (req, res) {
 }
 
 function addToolMaintenance (req, res) {
-  console.log(req.body)
   toolMaintenancesModel
     .create(req.body)
     .then((maintenance) => {
-      console.log('maintenance: ', maintenance)
       res.json(maintenance)
     })
     .catch((err) => res.json(err))
@@ -31,8 +29,8 @@ function addToolMaintenance (req, res) {
 
 function updateToolMaintenance (req, res) {
   toolMaintenancesModel
-    .findOneAndUpdate({ _id: req.params.id }
-      , {
+    .findOneAndUpdate({ _id: req.params.id },
+      {
         $push: { replacement: req.body.replacement },
         maintenanceDate: req.body.maintenanceDate,
         totalCost: req.body.totalCost,

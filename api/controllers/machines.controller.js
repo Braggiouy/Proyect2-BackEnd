@@ -44,7 +44,6 @@ function updateMachine (req, res) {
 }
 
 function deleteMchine (req, res) {
-  console.log('deleteMchine')
   machineModel
     .findByIdAndDelete(req.params.id)
     .then(machine => res.status(200).send(machine.type + ' has been deleted'))

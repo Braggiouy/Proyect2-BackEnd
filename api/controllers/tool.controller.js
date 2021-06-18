@@ -12,7 +12,6 @@ function getAllTools (req, res) {
 }
 
 function getToolByStatus (req, res) {
-  console.log('hola')
   toolModel
     .find({ busy: req.params.busy })
     .select({ busy: 1, addressBuildingSite: 1 })
