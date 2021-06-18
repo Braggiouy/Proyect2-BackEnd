@@ -27,7 +27,14 @@ function addMachineMaintenance (req, res) {
 
 function updateMachineMaintenance (req, res) {
   machineMaintenancesModel
-    .findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .findOneAndUpdate({ _id: req.params.id },
+      {
+        $push: { replacement: req.body.replacement },
+        maintenanceDate: req.body.maintenanceDate,
+        totalCost: req.body.totalCost,
+        priority: req.body.priority,
+        status: req.body.status
+      }, { new: true })
     .then(maintenance => {
       res.status(200).send(maintenance + 'has been updated')
     })
@@ -63,7 +70,8 @@ function getMechanicMaintenaceListMachines (req, res) {
 function updateMachineMaintenanceMechanic (req, res) {
   console.log(res.locals.user.id)
   machineMaintenancesModel
-    .findOneAndUpdate({ $and: [{ _id: req.params.id }, { userId: res.locals.user.id }] }, req.body, { new: true })
+    .findOneAndUpdate({ $and: [{ _id: req.params.id }, { userId: res.locals.user.id }] }, { $push: { replacement: req.body.replacement }, maintenanceDate: req.body.maintenanceDate, totalCost: req.body.totalCost, priority: req.body.priority, status: req.body.status }, { new: true })
+    // .findOneAndUpdate({ $and: [{ _id: req.params.id }, { userId: res.locals.user.id }] }, req.body, { new: true })
     .then(result => {
       res.status(200).send(result)
     }).catch(err => {

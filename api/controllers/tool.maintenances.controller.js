@@ -31,7 +31,15 @@ function addToolMaintenance (req, res) {
 
 function updateToolMaintenance (req, res) {
   toolMaintenancesModel
-    .findOneAndUpdate({ _id: req.params.id }, { $push: { replacement: req.body.replacement }, maintenanceDate: req.body.maintenanceDate, totalCost: req.body.totalCost, priority: req.body.priority, status: req.body.status }, { new: true })
+    .findOneAndUpdate({ _id: req.params.id }
+      , {
+        $push: { replacement: req.body.replacement },
+        maintenanceDate: req.body.maintenanceDate,
+        totalCost: req.body.totalCost,
+        priority: req.body.priority,
+        status: req.body.status
+      },
+      { new: true })
     .then(maintenance => {
       res.status(200).send(maintenance + 'has been updated')
     })
